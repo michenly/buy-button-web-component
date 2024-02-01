@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;my-element> Demo</title>
+    <title>&lt;shopify-product /> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../my-element.js"></script>
@@ -23,7 +23,7 @@
     <table>
       <tr>
         <th>Buy Button Script</th>
-        <th>shopify-product element</th>
+        <th>&lt;shopify-product /></th>
       </tr>
       <tr>
         <td>
@@ -125,7 +125,11 @@
           </script>
         </td>
         <td>
-          <shopify-product />
+          <shopify-product
+            domain="fakestore-ai.myshopify.com"
+            storefrontAccessToken="8c37c757675c373fa53bd8b443852694"
+            productId="7983593390102"
+          />
         </td>
       </tr>
     </table>
