@@ -7,6 +7,9 @@ import {
 
 import './elements/product-image';
 import './elements/product-title';
+import './elements/product-price';
+import './elements/product-options';
+import './elements/product-buy-button';
 
 @customElement('shopify-product')
 export class ShopifyProductElement extends LitElement {
@@ -81,18 +84,16 @@ export class ShopifyProductElement extends LitElement {
         <product-image
           alt-text="${this.product.featuredImage.altText || this.product.title}"
           url="${this.product.featuredImage.url}"
-        />
-        <h1 class="shopify-buy__product__title" data-element="product.title">
-          ${this.product.title}
-        </h1>
-        <div
-          class="shopify-buy__btn-wrapper"
-          data-element="product.buttonWrapper"
-        >
-          <button class="shopify-buy__btn" data-element="product.button">
-            Add to cart
-          </button>
-        </div>
+        ></product-image>
+        <product-title product-title=${this.product.title}></product-title>
+        <product-price
+          amount="${this.product.price.amount}"
+          currency-code="${this.product.price.currencyCode}"
+        ></product-price>
+        <product-options
+          options="${JSON.stringify(this.product.options)}"
+        ></product-options>
+        <product-buy-button></product-buy-button>
       </div>
     `;
   }
@@ -130,7 +131,7 @@ export class ShopifyProductElement extends LitElement {
         }
 
         if (data?.product) {
-          console.error(`data?.product=${JSON.stringify(data?.product)}`);
+          // console.error(`data?.product=${JSON.stringify(data?.product)}`);
           this.transformProduct(data?.product);
         }
       } catch (error) {

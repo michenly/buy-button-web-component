@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-option')
@@ -10,7 +10,7 @@ export class ProductOptionElement extends LitElement {
   };
 
   override render() {
-    if (!this.option) return;
+    if (!this.option) return nothing;
 
     return html`<div
       class="shopify-buy__option-select"

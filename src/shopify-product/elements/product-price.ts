@@ -1,16 +1,16 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-price')
 export class ProductPriceElement extends LitElement {
-  @property({type: String, attribute: 'price'})
-  price?: string;
+  @property({type: String})
+  amount?: string;
 
   @property({type: String, attribute: 'currency-code'})
   currencyCode?: string;
 
   override render() {
-    if (!this.price) return;
+    if (!this.amount) return nothing;
 
     return html` <div
       class="shopify-buy__product__price"
@@ -21,7 +21,7 @@ export class ProductPriceElement extends LitElement {
         class="shopify-buy__product__actual-price"
         data-element="product.price"
       >
-        ${this.price}
+        ${this.amount}
       </span>
     </div>`;
   }
