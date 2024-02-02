@@ -14,6 +14,9 @@
         padding: 8px;
       }
     </style>
+    <script>
+      window.emitLitDebugLogEvents = true;
+    </script>
   </head>
   <body>
     <my-element>
@@ -126,10 +129,34 @@
         </td>
         <td>
           <shopify-product
-            domain="fakestore-ai.myshopify.com"
-            storefrontAccessToken="8c37c757675c373fa53bd8b443852694"
-            productId="7983593390102"
+            id="shopify-product"
+            store-domain="fakestore-ai.myshopify.com"
+            public-access-token="8c37c757675c373fa53bd8b443852694"
+            product-id="7983593390102"
           />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button onclick="ChangeProduct()">Click to Change Product</button>
+          <button onclick="ChangeShop()">Click to Change Shop</button>
+          <script>
+            function ChangeProduct() {
+              document.getElementById('shopify-product').productId =
+                '7983595323414';
+            }
+          </script>
+          <script>
+            function ChangeShop() {
+              document.getElementById('shopify-product').storeDomain =
+                'unikitty-like-business.myshopify.com';
+              document.getElementById('shopify-product').publicAccessToken =
+                '7202bc8b34daf8b7f369193ff91e9a60';
+              document.getElementById('shopify-product').productId =
+                '9423609860';
+            }
+          </script>
         </td>
       </tr>
     </table>

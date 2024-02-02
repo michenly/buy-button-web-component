@@ -41,6 +41,7 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@shopify/storefront-api-client": "^0.2.2",
     "lit": "^3.0.0"
   },
   "devDependencies": {

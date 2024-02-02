@@ -1,12 +1,14 @@
 import { LitElement } from 'lit';
+import { type StorefrontApiClient } from '@shopify/storefront-api-client';
 export declare class ShopifyProductElement extends LitElement {
     static styles: import("lit").CSSResult;
-    domain?: string;
-    mode?: string;
+    storeDomain?: string;
+    publicAccessToken?: string;
     productId?: string;
-    product: {
+    client?: StorefrontApiClient;
+    product?: {
         title: string;
-        img: {
+        featuredImage: {
             altText: string;
             url: string;
         };
@@ -16,8 +18,14 @@ export declare class ShopifyProductElement extends LitElement {
             values: string[];
         }[];
     };
-    constructor();
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    update(changedProperties: Map<string, any>): void;
     render(): import("lit-html").TemplateResult<1>;
+    private createClient;
+    private getProduct;
+    private getProductQuery;
+    private transformProduct;
 }
 declare global {
     interface HTMLElementTagNameMap {
