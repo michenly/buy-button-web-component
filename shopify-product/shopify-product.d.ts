@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 import { type StorefrontApiClient } from '@shopify/storefront-api-client';
+import './elements/product-image';
 export declare class ShopifyProductElement extends LitElement {
-    static styles: import("lit").CSSResult;
     storeDomain?: string;
     publicAccessToken?: string;
     productId?: string;
