@@ -1,8 +1,35 @@
-import {LitElement, html, nothing} from 'lit';
+import {LitElement, html, nothing, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-price')
 export class ProductPriceElement extends LitElement {
+  static override styles = [
+    css`
+      .shopify-buy__product__price {
+        margin-bottom: 15px;
+      }
+
+      .visuallyhidden {
+        border: 0;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      .shopify-buy__product__actual-price,
+      .shopify-buy__product__compare-price {
+        color: #4a4a4a;
+        display: inline-block;
+      }
+      .shopify-buy__product__actual-price {
+        font-size: 14px;
+      }
+    `,
+  ];
+
   @property({type: String})
   amount?: string;
 

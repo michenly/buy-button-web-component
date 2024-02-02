@@ -1,8 +1,18 @@
-import {LitElement, html, nothing} from 'lit';
+import {LitElement, html, nothing, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-image')
 export class ProductImageElement extends LitElement {
+  static override styles = css`
+    .shopify-buy__product__variant-img {
+      max-width: 100%;
+      margin: 0 auto 15px auto;
+      -webkit-transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+  `;
+
   @property({type: String})
   url?: string;
 

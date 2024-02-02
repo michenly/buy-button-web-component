@@ -1,9 +1,27 @@
-import {LitElement, html, nothing} from 'lit';
+import {LitElement, html, nothing, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
+import {classMap} from 'lit/directives/class-map.js';
+
 import './product-option';
 
 @customElement('product-options')
 export class ProductOptionsElement extends LitElement {
+  static override styles = css`
+    .shopify-buy__product__variant-selectors {
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .shopify-buy__layout-vertical.shopify-buy__product__variant-selectors {
+      width: 100%;
+      max-width: 280px;
+      display: inline-block;
+    }
+  `;
+
+  @property({type: Boolean})
+  horizontal = false;
+
   @property({type: Array})
   options?: {
     name: string;
@@ -14,7 +32,11 @@ export class ProductOptionsElement extends LitElement {
     if (!this.options) return nothing;
 
     return html`<div
-      class="shopify-buy__product__variant-selectors"
+      class=${classMap({
+        ['shopify-buy__layout-vertical']: !this.horizontal,
+        ['shopify-buy__layout-horizontal']: this.horizontal,
+        ['shopify-buy__product__variant-selectors']: true,
+      })}
       data-element="product.options"
     >
       ${this.options.map(

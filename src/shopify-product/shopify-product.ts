@@ -1,4 +1,4 @@
-import {LitElement, html, nothing} from 'lit';
+import {LitElement, html, nothing, css} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {
   createStorefrontApiClient,
@@ -13,6 +13,28 @@ import './elements/product-buy-button';
 
 @customElement('shopify-product')
 export class ShopifyProductElement extends LitElement {
+  static override styles = [
+    css`
+      :host {
+        display: block;
+        max-width: 280px;
+
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.2;
+        color: #4c4c4c;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    `,
+    css`
+      .shopify-buy__layout-vertical {
+        text-align: center;
+      }
+    `,
+  ];
+
   @property({
     type: String,
     attribute: 'store-domain',
@@ -91,6 +113,7 @@ export class ShopifyProductElement extends LitElement {
           currency-code="${this.product.price.currencyCode}"
         ></product-price>
         <product-options
+          horizontal
           options="${JSON.stringify(this.product.options)}"
         ></product-options>
         <product-buy-button></product-buy-button>
