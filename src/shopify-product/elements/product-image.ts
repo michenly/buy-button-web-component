@@ -1,8 +1,17 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-image')
 export class ProductImageElement extends LitElement {
+  static override styles = css`
+    :host {
+      display: block;
+      border: solid 1px gray;
+      padding: 16px;
+      max-width: 800px;
+    }
+  `;
+
   @property({type: String})
   url?: string;
 
@@ -10,23 +19,21 @@ export class ProductImageElement extends LitElement {
   altText?: string;
 
   override render() {
-    if (this.url) {
-      const src = this.imageForSize(this.url);
+    if (!this.url) return;
 
-      return html`<div
-        class="shopify-buy__product-img-wrapper"
-        data-element="product.imgWrapper"
-      >
-        <img
-          alt="${this.altText}"
-          data-element="product.img"
-          class="shopify-buy__product__variant-img"
-          src="${src}"
-        />
-      </div>`;
-    } else {
-      return html``;
-    }
+    const src = this.imageForSize(this.url);
+
+    return html`<div
+      class="shopify-buy__product-img-wrapper"
+      data-element="product.imgWrapper"
+    >
+      <img
+        alt="${this.altText}"
+        data-element="product.img"
+        class="shopify-buy__product__variant-img"
+        src="${src}"
+      />
+    </div>`;
   }
 
   // From
