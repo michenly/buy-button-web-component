@@ -1,17 +1,8 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-image')
 export class ProductImageElement extends LitElement {
-  static override styles = css`
-    :host {
-      display: block;
-      border: solid 1px gray;
-      padding: 16px;
-      max-width: 800px;
-    }
-  `;
-
   @property({type: String})
   url?: string;
 
@@ -19,7 +10,7 @@ export class ProductImageElement extends LitElement {
   altText?: string;
 
   override render() {
-    if (!this.url) return;
+    if (!this.url) return nothing;
 
     const src = this.imageForSize(this.url);
 

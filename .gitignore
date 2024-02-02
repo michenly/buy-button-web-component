@@ -1,6 +1,5 @@
 /node_modules/
 /lib/
-/test/
 custom-elements.json
 # top level source
 my-element.js
@@ -9,3 +8,6 @@ my-element.d.ts
 my-element.d.ts.map
 # only generated for size check
 my-element.bundled.js
+
+/shopify-product/
+/example/

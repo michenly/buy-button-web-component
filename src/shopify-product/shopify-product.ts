@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, nothing} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {
   createStorefrontApiClient,
@@ -6,6 +6,7 @@ import {
 } from '@shopify/storefront-api-client';
 
 import './elements/product-image';
+import './elements/product-title';
 
 @customElement('shopify-product')
 export class ShopifyProductElement extends LitElement {
@@ -31,7 +32,10 @@ export class ShopifyProductElement extends LitElement {
       altText: string;
       url: string;
     };
-    price: string;
+    price: {
+      amount: string;
+      currencyCode: string;
+    };
     options: {
       name: string;
       values: string[];
@@ -70,88 +74,27 @@ export class ShopifyProductElement extends LitElement {
   }
 
   override render() {
-    return this.product
-      ? html`
-          <div
-            class="has-image shopify-buy__layout-vertical shopify-buy__product"
-          >
-            <product-image
-              alt-text="${this.product.featuredImage.altText ||
-              this.product.title}"
-              url="${this.product.featuredImage.url}"
-            />
-            <h1
-              class="shopify-buy__product__title"
-              data-element="product.title"
-            >
-              ${this.product.title}
-            </h1>
-            <div
-              class="shopify-buy__product__price"
-              data-element="product.prices"
-            >
-              <span class="visuallyhidden">Regular price&nbsp;</span>
-              <span
-                class="shopify-buy__product__actual-price"
-                data-element="product.price"
-              >
-                ${this.product.price}
-              </span>
-            </div>
-            <div
-              class="shopify-buy__product__variant-selectors"
-              data-element="product.options"
-            >
-              ${this.product.options.map(
-                (option) => html`<div
-                  class="shopify-buy__option-select"
-                  data-element="option.option"
-                >
-                  <label
-                    for="Option-1706809233400-0"
-                    class="shopify-buy__option-select__label "
-                    data-element="option.label"
-                    >${option.name}</label
-                  >
-                  <div
-                    class="shopify-buy__option-select-wrapper"
-                    data-element="option.wrapper"
-                  >
-                    <select
-                      id="Option-1706809233400-0"
-                      class="shopify-buy__option-select__select"
-                      name="${option.name}"
-                      data-element="option.select"
-                    >
-                      ${option.values.map(
-                        (value) =>
-                          html` <option value="${value}">${value}</option>`
-                      )}
-                    </select>
-                    <svg
-                      class="shopify-buy__select-icon"
-                      data-element="option.selectIcon"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M21 5.176l-9.086 9.353L3 5.176.686 7.647 12 19.382 23.314 7.647 21 5.176z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>`
-              )}
-            </div>
-            <div
-              class="shopify-buy__btn-wrapper"
-              data-element="product.buttonWrapper"
-            >
-              <button class="shopify-buy__btn" data-element="product.button">
-                Add to cart
-              </button>
-            </div>
-          </div>
-        `
-      : html``;
+    if (!this.product) return nothing;
+
+    return html`
+      <div class="has-image shopify-buy__layout-vertical shopify-buy__product">
+        <product-image
+          alt-text="${this.product.featuredImage.altText || this.product.title}"
+          url="${this.product.featuredImage.url}"
+        />
+        <h1 class="shopify-buy__product__title" data-element="product.title">
+          ${this.product.title}
+        </h1>
+        <div
+          class="shopify-buy__btn-wrapper"
+          data-element="product.buttonWrapper"
+        >
+          <button class="shopify-buy__btn" data-element="product.button">
+            Add to cart
+          </button>
+        </div>
+      </div>
+    `;
   }
 
   private createClient() {
@@ -187,7 +130,7 @@ export class ShopifyProductElement extends LitElement {
         }
 
         if (data?.product) {
-          // console.error(`data?.product=${JSON.stringify(data?.product)}`);
+          console.error(`data?.product=${JSON.stringify(data?.product)}`);
           this.transformProduct(data?.product);
         }
       } catch (error) {
@@ -237,7 +180,7 @@ export class ShopifyProductElement extends LitElement {
       title: product.title,
       featuredImage: product.featuredImage,
       options: product.options,
-      price: product.variants.nodes[0].price.amount,
+      price: product.variants.nodes[0].price,
     };
   }
 }

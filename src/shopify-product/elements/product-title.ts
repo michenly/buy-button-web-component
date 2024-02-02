@@ -1,4 +1,4 @@
-import {LitElement, html} from 'lit';
+import {LitElement, html, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 @customElement('product-title')
@@ -7,7 +7,7 @@ export class ProductTitleElement extends LitElement {
   productTitle?: string;
 
   override render() {
-    if (!this.productTitle) return;
+    if (!this.productTitle) return nothing;
 
     return html`<h1
       class="shopify-buy__product__title"
